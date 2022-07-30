@@ -9,6 +9,8 @@ from tkinter import filedialog
 from random import randint
 from moviepy.editor import VideoFileClip
 
+
+# -------- Chose background --------
 root = tk.Tk()
 root.withdraw()
 
