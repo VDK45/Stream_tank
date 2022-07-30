@@ -1,0 +1,12 @@
+pip install pygame
+pip install json
+pip install pyperclip
+pip install getpass
+pip install tkinter
+pip install moviepy
+pip install time
+pip install threading
+pip install webbrowser
+pip install util
+pip install socket
+pip install re
