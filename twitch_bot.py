@@ -16,7 +16,7 @@ time_move = 2  # action time
 TWITCH_RUN = True
 
 lst_chat = ['BOT', 'Write in the chat to play!', 'BOT', 'Welcome to Tank game!',
-            'BOT', 'Enter commands for the game in the chat!', 'BOT', 'Welcome!']
+            'BOT', 'Enter commands for the game in the chat!', 'BOT', 'RESET THE GAME FOR CONNECT TO TWITCH!']
 sound = False
 
 
@@ -48,9 +48,9 @@ def run():
     s.send("JOIN #{}\r\n".format(config.CHAN).encode("utf-8"))
     # chat_message = re.compile(r"^:\w+!\w+@\w+.tmi\.twitch\.tv PRIVMSG #\w+ :")
     chat_message = re.compile(r"^w+")
-    description = utils.mess(s, "The game begining! ")
-    description2 = utils.mess(s, "Enter commands for the game in the chat: ")
-    description3 = utils.mess(s, "!tank !fire !left !right !up !down")
+    description = utils.mess(s, "The game begining! Enter commands for the game in the chat:")
+    description2 = utils.mess(s, "!tank !fire !left !right !up !down !build")
+    description3 = utils.mess(s, "Example: !left 50 - moving left 5 second")
 
     while TWITCH_RUN:
         response = s.recv(1024).decode("utf-8")
@@ -74,7 +74,7 @@ def run():
                         elif message[0:8] == 'tmi.twit':
                             message = 'Twitch has been connected'
 
-                        # Перенос длиных строкw
+                        # Перенос длиных строк
                         if len(message) < 30:
                             full_msg = message
                             lst_chat.insert(0, message)

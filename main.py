@@ -99,11 +99,6 @@ def play(player_f, info_f, aim_f, moving_f):
     # -------- Sounds ----------
     sound_begin(all_volume / 1.5)
 
-    # -------- Test ----------
-    # SCREEN = pygame.Surface((WIDTH, HEIGHT))
-
-    # SCREEN.fill((0, 0, 0, 0))
-
     while RUN:
         mouse_position = pygame.mouse.get_pos()
         current_time = pygame.time.get_ticks()
@@ -379,6 +374,12 @@ def options():
 
         pygame.draw.rect(SCREEN, 'Blue', (190, 105, 300 * all_volume, 30))
         pygame.draw.rect(SCREEN, 'black', (190, 105, 300, 30), 5)
+
+        # ---------- Video tips -------------
+        button_vieo_tips = Button(image=option_button_rect, pos=(900, 120),
+                                  text_input="Video tips", font=get_font(25), base_color="Blue",
+                                  hovering_color="Yellow")
+
         # ------------- Green background -----------
         button_green_bg = Button(image=green_button_rect, pos=(500, 220),
                                  text_input="BACKGROUND", font=get_font(25), base_color="Blue",
@@ -393,7 +394,7 @@ def options():
                                   hovering_color="Yellow")
 
         # --------- Clear high score ----------
-        button_clear_high_score = Button(image=option_button_rect, pos=(900, 120),
+        button_clear_high_score = Button(image=option_button_rect, pos=(900, 320),
                                          text_input="Clear high score", font=get_font(25), base_color="Blue",
                                          hovering_color="Yellow")
 
@@ -428,7 +429,7 @@ def options():
 
         # ------ Draw buttons -------
         for button in [button_minus, button_clear_high_score, button_plus,
-                       OPTIONS_BACK]:
+                       OPTIONS_BACK, button_vieo_tips]:
             button.changeColor(OPTIONS_MOUSE_POS)
             button.update(SCREEN)
 
@@ -487,15 +488,18 @@ def options():
                     save_option_setting(option_data, all_volume, walls_button, tank_msg)
                 if button_minus.checkForInput(OPTIONS_MOUSE_POS):
                     all_volume -= 0.1
-                    if all_volume < 0:
+                    if all_volume <= 0:
                         all_volume = 0
                     save_option_setting(option_data, all_volume, walls_button, tank_msg)
+                # ------------- Video tips ------------------
+                if button_vieo_tips.checkForInput(OPTIONS_MOUSE_POS):
+                    video_tips.preview()
                 # ------ Clear high score -----
                 if button_clear_high_score.checkForInput(OPTIONS_MOUSE_POS):
                     high_score_data = {"player_name": "Player name", "high_score": 0}
                     save_high_score(high_score_data)
-                    RUN = False
-                    pygame.quit()
+                    # RUN = False
+                    # pygame.quit()
                 # ------- Green background ON/OFF ----------
                 if button_green_bg.checkForInput(OPTIONS_MOUSE_POS):
                     green_background = True

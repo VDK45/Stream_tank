@@ -9,8 +9,6 @@ from tkinter import filedialog
 from random import randint
 from moviepy.editor import VideoFileClip
 
-
-# -------- Chose background --------
 root = tk.Tk()
 root.withdraw()
 
@@ -28,20 +26,20 @@ def resource_path(relative_path):
 # ----------------- Game stating ---------------------
 pygame.init()
 pygame.mixer.pre_init(frequency=44100, size=-16, channels=8, buffer=1024, devicename=None)
-intro = resource_path("video_intro.mp4")
-video = VideoFileClip(intro)
-video.preview()
-video_tips = resource_path("tips.mp4")
+intro = resource_path("assets/video_intro.mp4")
+intro = VideoFileClip(intro)
+# intro.preview()
+video_tips = resource_path("assets/tips.mp4")
 video_tips = VideoFileClip(video_tips)
 
 # ----------------- Window parameters ---------------
 pygame.display.set_caption("Tank Twitch play")  # название окна
-icon_win = resource_path('images/tank_big_red_up.png')
+icon_win = resource_path('images/tanks/tank_big_red_up.png')
 pygame.display.set_icon(pygame.image.load(icon_win))
 bg_res = resource_path('assets/Background.png')
 background_menu = pygame.image.load(bg_res)
-bgt_res = resource_path('images/bg.bmp')
-background_transparent = pygame.image.load(bgt_res)
+# bgt_res = resource_path('images/bg.bmp')
+# background_transparent = pygame.image.load(bgt_res)
 RUN = True
 FPS = 30
 
@@ -67,36 +65,36 @@ chat_rect_res = resource_path("assets/chat_rect.png")
 chat_rect = pygame.image.load(chat_rect_res)
 
 # ------------ Images -------------
-tank_sand_up_res = resource_path('images/tank_sand_up.png')
+tank_sand_up_res = resource_path('images/tanks/tank_sand_up.png')
 tank_sand_up = pygame.image.load(tank_sand_up_res)
-tank_sand_down_res = resource_path('images/tank_sand_down.png')
+tank_sand_down_res = resource_path('images/tanks/tank_sand_down.png')
 tank_sand_down = pygame.image.load(tank_sand_down_res)
-tank_sand_left_res = resource_path('images/tank_sand_left.png')
+tank_sand_left_res = resource_path('images/tanks/tank_sand_left.png')
 tank_sand_left = pygame.image.load(tank_sand_left_res)
-tank_sand_right_res = resource_path('images/tank_sand_right.png')
+tank_sand_right_res = resource_path('images/tanks/tank_sand_right.png')
 tank_sand_right = pygame.image.load(tank_sand_right_res)
-tank_dark_up_res = resource_path('images/tank_dark_up.png')
+tank_dark_up_res = resource_path('images/tanks/tank_dark_up.png')
 tank_dark_up = pygame.image.load(tank_dark_up_res)
 tank_dark_down = pygame.transform.flip(tank_dark_up, False, True)
 tank_dark_left = pygame.transform.rotate(tank_dark_up, 90)
 tank_dark_right = pygame.transform.rotate(tank_dark_up, -90)
-tank_blue_up_res = resource_path('images/tank_blue_up.png')
+tank_blue_up_res = resource_path('images/tanks/tank_blue_up.png')
 tank_blue_up = pygame.image.load(tank_blue_up_res)
 tank_blue_down = pygame.transform.flip(tank_blue_up, False, True)
 tank_blue_left = pygame.transform.rotate(tank_blue_up, 90)
 tank_blue_right = pygame.transform.rotate(tank_blue_up, -90)
-tank_red_up_res = resource_path('images/tank_red_up.png')
+tank_red_up_res = resource_path('images/tanks/tank_red_up.png')
 tank_red_up = pygame.image.load(tank_red_up_res)
 tank_red_down = pygame.transform.flip(tank_red_up, False, True)
 tank_red_left = pygame.transform.rotate(tank_red_up, 90)
 tank_red_right = pygame.transform.rotate(tank_red_up, -90)
-tank_big_red_up_res = resource_path('images/tank_big_red_up.png')
+tank_big_red_up_res = resource_path('images/tanks/tank_big_red_up.png')
 tank_big_red_up = pygame.image.load(tank_big_red_up_res)
 tank_big_red_down = pygame.transform.flip(tank_big_red_up, False, True)
 tank_big_red_left = pygame.transform.rotate(tank_big_red_up, 90)
 tank_big_red_right = pygame.transform.rotate(tank_big_red_up, -90)
 
-bullet_dark_up_res = resource_path('images/bulletDarkUp.png')
+bullet_dark_up_res = resource_path('images/tanks/bulletDarkUp.png')
 bullet_dark_up = pygame.image.load(bullet_dark_up_res)
 bullet_dark_down = pygame.transform.flip(bullet_dark_up, False, True)
 bullet_dark_left = pygame.transform.rotate(bullet_dark_up, 90)
@@ -104,7 +102,7 @@ bullet_dark_right = pygame.transform.rotate(bullet_dark_up, -90)
 
 star_res = resource_path('images/icons/star.png')
 star = pygame.image.load(star_res)
-oil_res = resource_path('images/oilSpill_large.png')
+oil_res = resource_path('images/icons/oilSpill_large.png')
 oil = pygame.image.load(oil_res)
 
 # ------------ Fonts text -------------
@@ -198,12 +196,12 @@ title_size = 100
 
 # ------- Game parameters save -------
 def save_game_setting(screen_data_f):
-    with open("game_setting.cfg", 'w') as game_file:
+    with open("assets/cfg/game_setting.cfg", 'w') as game_file:
         json.dump(screen_data_f, game_file)
 
 
 def read_game_setting():
-    with open("game_setting.cfg", 'r') as game_file:
+    with open("assets/cfg/game_setting.cfg", 'r') as game_file:
         return json.load(game_file)
 
 
@@ -241,12 +239,12 @@ def hi_score():
 
 
 def save_high_score(high_score_data_f):
-    with open("high_score.cfg", 'w') as high_score_file:
+    with open("assets/cfg/high_score.cfg", 'w') as high_score_file:
         json.dump(high_score_data_f, high_score_file)
 
 
 def read_high_score():
-    with open("high_score.cfg") as high_score_file_r:
+    with open("assets/cfg/high_score.cfg") as high_score_file_r:
         return json.load(high_score_file_r)
 
 
@@ -254,17 +252,17 @@ high_score_data = read_high_score()
 
 
 def save_channel_setting(channel_key_data_f):
-    with open("channel_setting.cfg", 'w') as channel_file:
+    with open("assets/cfg/channel_setting.cfg", 'w') as channel_file:
         json.dump(channel_key_data_f, channel_file)
 
 
 def read_channel_setting():
-    with open("channel_setting.cfg", 'r') as chanel_file:
+    with open("assets/cfg/channel_setting.cfg", 'r') as chanel_file:
         return json.load(chanel_file)
 
 
 def save_option_setting(option_data_f, main_volume_f, walls_button, tank_chat):
-    with open("option_setting.cfg", 'w') as option_file:
+    with open("assets/cfg/option_setting.cfg", 'w') as option_file:
         option_data_f['volume'] = main_volume_f
         option_data_f['brick_walls'] = walls_button
         option_data_f['tank_msg'] = tank_chat
@@ -272,18 +270,18 @@ def save_option_setting(option_data_f, main_volume_f, walls_button, tank_chat):
 
 
 def read_option_setting():
-    with open("option_setting.cfg") as option_file:
+    with open("assets/cfg/option_setting.cfg") as option_file:
         return json.load(option_file)
 
 
 def save_option_green_bg(option_data_f, green_bg):
-    with open("option_setting.cfg", 'w') as option_file:
+    with open("assets/cfg/option_setting.cfg", 'w') as option_file:
         option_data_f['green_bg'] = green_bg
         json.dump(option_data_f, option_file)
 
 
 def read_option_green_bg():
-    with open("option_setting.cfg") as option_file:
+    with open("assets/cfg/option_setting.cfg") as option_file:
         return json.load(option_file)
 
 
@@ -291,13 +289,13 @@ all_volume = read_option_setting()['volume']
 
 
 def save_b_ground_setting(option_data_f, background_f):
-    with open("option_setting.cfg", 'w') as option_file:
+    with open("assets/cfg/option_setting.cfg", 'w') as option_file:
         option_data_f['background'] = background_f
         json.dump(option_data_f, option_file)
 
 
 def save_b_ground_show_chat(option_data_f, show_chat_f):
-    with open("option_setting.cfg", 'w') as option_file:
+    with open("assets/cfg/option_setting.cfg", 'w') as option_file:
         option_data_f['show_chat'] = show_chat_f
         json.dump(option_data_f, option_file)
 
