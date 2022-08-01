@@ -38,8 +38,6 @@ icon_win = resource_path('images/tanks/tank_big_red_up.png')
 pygame.display.set_icon(pygame.image.load(icon_win))
 bg_res = resource_path('assets/Background.png')
 background_menu = pygame.image.load(bg_res)
-# bgt_res = resource_path('images/bg.bmp')
-# background_transparent = pygame.image.load(bgt_res)
 RUN = True
 FPS = 30
 
