@@ -394,7 +394,7 @@ def options():
                                   hovering_color="Yellow")
 
         # --------- Clear high score ----------
-        button_clear_high_score = Button(image=option_button_rect, pos=(900, 320),
+        button_clear_high_score = Button(image=option_button_rect, pos=(900, 520),
                                          text_input="Clear high score", font=get_font(25), base_color="Blue",
                                          hovering_color="Yellow")
 
