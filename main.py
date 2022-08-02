@@ -493,7 +493,7 @@ def options():
                     save_option_setting(option_data, all_volume, walls_button, tank_msg)
                 # ------------- Video tips ------------------
                 if button_vieo_tips.checkForInput(OPTIONS_MOUSE_POS):
-                    video_tips.preview()
+                    video_tips_transparent.preview()
                 # ------ Clear high score -----
                 if button_clear_high_score.checkForInput(OPTIONS_MOUSE_POS):
                     high_score_data = {"player_name": "Player name", "high_score": 0}

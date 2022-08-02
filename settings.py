@@ -31,6 +31,8 @@ intro = VideoFileClip(intro)
 # intro.preview()
 video_tips = resource_path("assets/tips.mp4")
 video_tips = VideoFileClip(video_tips)
+video_tips_tr  = resource_path("assets/tips_transparent .mp4")
+video_tips_transparent = VideoFileClip(video_tips_tr)
 
 # ----------------- Window parameters ---------------
 pygame.display.set_caption("Tank Twitch play")  # название окна
