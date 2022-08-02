@@ -1,2 +1,5 @@
-
-output/CFG/Конфуция.mp4
+output/
+*.pyc
+__pycache__/
+venv/
+__pycache__/settings.cpython-310.pyc
