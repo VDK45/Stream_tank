@@ -318,6 +318,7 @@ def play(player_f, info_f, aim_f, moving_f):
                     del_wall(mouse_position)
                 if event.button == 2:
                     del_all_walls()
+                # ------- Press help button -------
                 if help_button.checkForInput(OPTION_MOUSE_POS):
                     webbrowser.open('https://vdk45.itch.io/', new=2)
             if event.type == pygame.QUIT:
@@ -333,7 +334,6 @@ def play(player_f, info_f, aim_f, moving_f):
             if event.type == pygame.USEREVENT:
                 time_bomb -= 1
                 time_red_star -= 1
-
 
             # -------- Change video size if < HD size --------
             if event.type == pygame.VIDEORESIZE:
