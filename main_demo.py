@@ -60,6 +60,7 @@ def draw_info(x, y, player_f, aim_f, info_f, name_score_f, hi_score_f):
 # ------------------------------ GAME -------------------------------
 def play(player_f, info_f, aim_f, moving_f):
     global RUN
+    start = time.time()
     # -------- Set screen size ------
     WIDTH = read_game_setting()["width"]
     HEIGHT = read_game_setting()["height"]
@@ -100,6 +101,15 @@ def play(player_f, info_f, aim_f, moving_f):
     sound_begin(all_volume / 1.5)
 
     while RUN:
+        tm = time.time()
+        OPTION_MOUSE_POS = pygame.mouse.get_pos()
+        if tm > start + 900:
+            RUN = False
+        help_button = Button(image=None, pos=(WIDTH//2, HEIGHT-30),
+                             text_input="Help project!", font=get_font(15), base_color="Green",
+                             hovering_color="Yellow")
+        help_button.changeColor(OPTION_MOUSE_POS)
+
         mouse_position = pygame.mouse.get_pos()
         current_time = pygame.time.get_ticks()
         random_x = random.randint(0, WIDTH - 90)
@@ -112,6 +122,8 @@ def play(player_f, info_f, aim_f, moving_f):
         HI_SCORE = hi_score()['high_score']
         screen_data = {'width': WIDTH, 'height': HEIGHT}
         SCREEN.fill('Black')
+        help_button.update(SCREEN)
+
         if not green_background:
             try:
                 SCREEN.blit(background_game_image, (0, 0))
@@ -319,6 +331,8 @@ def play(player_f, info_f, aim_f, moving_f):
             if event.type == pygame.USEREVENT:
                 time_bomb -= 1
                 time_red_star -= 1
+            if help_button.checkForInput(OPTION_MOUSE_POS):
+                webbrowser.open('https://www.itch.io/', new=2)
 
             # -------- Change video size if < HD size --------
             if event.type == pygame.VIDEORESIZE:

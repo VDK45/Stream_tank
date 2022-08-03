@@ -4,3 +4,5 @@ __pycache__/
 venv/
 __pycache__/settings.cpython-310.pyc
 TEST.py
+assets/cfg
+
