@@ -122,7 +122,6 @@ def play(player_f, info_f, aim_f, moving_f):
         HI_SCORE = hi_score()['high_score']
         screen_data = {'width': WIDTH, 'height': HEIGHT}
         SCREEN.fill('Black')
-        help_button.update(SCREEN)
 
         if not green_background:
             try:
@@ -301,6 +300,7 @@ def play(player_f, info_f, aim_f, moving_f):
                                 explosions.pop(0)
                             if len(oils) > 10:
                                 oils.pop(0)
+        help_button.update(SCREEN)
 
         # --- Game parameters ---
         clock.tick(FPS)  # frames/second
@@ -318,6 +318,8 @@ def play(player_f, info_f, aim_f, moving_f):
                     del_wall(mouse_position)
                 if event.button == 2:
                     del_all_walls()
+                if help_button.checkForInput(OPTION_MOUSE_POS):
+                    webbrowser.open('https://vdk45.itch.io/', new=2)
             if event.type == pygame.QUIT:
                 save_high_score(high_score_data)
                 save_game_setting(screen_data)
@@ -331,8 +333,7 @@ def play(player_f, info_f, aim_f, moving_f):
             if event.type == pygame.USEREVENT:
                 time_bomb -= 1
                 time_red_star -= 1
-            if help_button.checkForInput(OPTION_MOUSE_POS):
-                webbrowser.open('https://www.itch.io/', new=2)
+
 
             # -------- Change video size if < HD size --------
             if event.type == pygame.VIDEORESIZE:
