@@ -63,7 +63,7 @@ class Tank:
     def validate_y_max(cls, arg):
         return arg <= cls.MAX_Y
 
-    # ----- Inner class bullet -----
+    # ---------- Bullet ----------
     class Bullet:
         """ Bullet_side """
 
@@ -87,9 +87,18 @@ class Tank:
 
     def bullet_start_position(self):
         for bul in self.bullets:
-            if bul == self.bullets[0]:
-                bul.rect_bullet.x = self.rect.x + 38
+            if bul == self.bullets[0] and self.side == self.tank_sides[2]:  # left
+                bul.rect_bullet.x = self.rect.x
                 bul.rect_bullet.y = self.rect.y + 38
+            elif bul == self.bullets[0] and self.side == self.tank_sides[3]:  # right
+                bul.rect_bullet.x = self.rect.x + 80
+                bul.rect_bullet.y = self.rect.y + 38
+            elif bul == self.bullets[0] and self.side == self.tank_sides[0]:  # up
+                bul.rect_bullet.x = self.rect.x + 38
+                bul.rect_bullet.y = self.rect.y
+            elif bul == self.bullets[0] and self.side == self.tank_sides[1]:  # down
+                bul.rect_bullet.x = self.rect.x + 38
+                bul.rect_bullet.y = self.rect.y + 80
 
     def del_bullet(self):
         for bullet in self.bullets:
@@ -97,18 +106,22 @@ class Tank:
 
     def shot(self, bullet_time_now, volume):
         self.bullet_next_time = bullet_time_now + 500
-        if self.side == self.tank_sides[2] and len(self.bullets) < 1:
+        if self.side == self.tank_sides[2] and len(self.bullets) < 1:  # left
             self.bullets.append(self.Bullet(bullet_dark_left, volume))
             self.bullet_start_position()
-        elif self.side == self.tank_sides[3] and len(self.bullets) < 1:
+            SCREEN.blit(flash_left, (self.rect.x - 50, self.rect.y + 35))
+        elif self.side == self.tank_sides[3] and len(self.bullets) < 1:  # right
             self.bullets.append(self.Bullet(bullet_dark_right, volume))
             self.bullet_start_position()
-        elif self.side == self.tank_sides[0] and len(self.bullets) < 1:
+            SCREEN.blit(flash_right, (self.rect.x + 100, self.rect.y + 35))
+        elif self.side == self.tank_sides[0] and len(self.bullets) < 1:  # up
             self.bullets.append(self.Bullet(bullet_dark_up, volume))
             self.bullet_start_position()
-        elif self.side == self.tank_sides[1] and len(self.bullets) < 1:
+            SCREEN.blit(flash_up, (self.rect.x + 35, self.rect.y - 50))
+        elif self.side == self.tank_sides[1] and len(self.bullets) < 1:  # down
             self.bullets.append(self.Bullet(bullet_dark_down, volume))
             self.bullet_start_position()
+            SCREEN.blit(flash_down, (self.rect.x + 35, self.rect.y + 100))
 
     def second_shot(self, volume):
         pass
@@ -235,15 +248,19 @@ class TankBlue(Tank):
         if self.side == tank_blue_left and len(self.bullets) < 1:
             self.bullets.append(self.Bullet(bullet_dark_left, volume))
             self.bullet_start_position()
+            SCREEN.blit(flash_left, (self.rect.x - 50, self.rect.y + 35))
         elif self.side == tank_blue_right and len(self.bullets) < 1:
             self.bullets.append(self.Bullet(bullet_dark_right, volume))
             self.bullet_start_position()
+            SCREEN.blit(flash_right, (self.rect.x + 100, self.rect.y + 35))
         elif self.side == tank_blue_up and len(self.bullets) < 1:
             self.bullets.append(self.Bullet(bullet_dark_up, volume))
             self.bullet_start_position()
+            SCREEN.blit(flash_up, (self.rect.x + 35, self.rect.y - 50))
         elif self.side == tank_blue_down and len(self.bullets) < 1:
             self.bullets.append(self.Bullet(bullet_dark_down, volume))
             self.bullet_start_position()
+            SCREEN.blit(flash_down, (self.rect.x + 35, self.rect.y + 100))
 
     def bullet_draw(self):
         for bul in self.bullets:
@@ -286,24 +303,37 @@ class TankDark(Tank):
 
     def bullet_start_position(self):
         for bul in self.bullets:
-            if bul == self.bullets[0]:
-                bul.rect_bullet.x = self.rect.x + 42
+            if bul == self.bullets[0] and self.side == self.tank_sides[2]:  # left
+                bul.rect_bullet.x = self.rect.x
                 bul.rect_bullet.y = self.rect.y + 42
+            elif bul == self.bullets[0] and self.side == self.tank_sides[3]:  # right
+                bul.rect_bullet.x = self.rect.x + 80
+                bul.rect_bullet.y = self.rect.y + 42
+            elif bul == self.bullets[0] and self.side == self.tank_sides[0]:  # up
+                bul.rect_bullet.x = self.rect.x + 42
+                bul.rect_bullet.y = self.rect.y
+            elif bul == self.bullets[0] and self.side == self.tank_sides[1]:  # down
+                bul.rect_bullet.x = self.rect.x + 42
+                bul.rect_bullet.y = self.rect.y + 80
 
     def shot(self, bullet_time_now, volume):
         self.bullet_next_time = bullet_time_now + 500
         if self.side == tank_dark_left and len(self.bullets) < 1:
             self.bullets.append(self.Bullet(bullet_dark_left, volume))
             self.bullet_start_position()
+            SCREEN.blit(flash_left, (self.rect.x - 50, self.rect.y + 40))
         elif self.side == tank_dark_right and len(self.bullets) < 1:
             self.bullets.append(self.Bullet(bullet_dark_right, volume))
             self.bullet_start_position()
+            SCREEN.blit(flash_right, (self.rect.x + 100, self.rect.y + 40))
         elif self.side == tank_dark_up and len(self.bullets) < 1:
             self.bullets.append(self.Bullet(bullet_dark_up, volume))
             self.bullet_start_position()
+            SCREEN.blit(flash_up, (self.rect.x + 40, self.rect.y - 50))
         elif self.side == tank_dark_down and len(self.bullets) < 1:
             self.bullets.append(self.Bullet(bullet_dark_down, volume))
             self.bullet_start_position()
+            SCREEN.blit(flash_down, (self.rect.x + 40, self.rect.y + 100))
 
     # ----- Draw -----
     def draw(self):
@@ -345,9 +375,18 @@ class TankRed(Tank):
 
     def bullet_start_position(self):
         for bul in self.bullets:
-            if bul == self.bullets[0]:
-                bul.rect_bullet.x = self.rect.x + 44
+            if bul == self.bullets[0] and self.side == self.tank_sides[2]:  # left
+                bul.rect_bullet.x = self.rect.x
                 bul.rect_bullet.y = self.rect.y + 44
+            elif bul == self.bullets[0] and self.side == self.tank_sides[3]:  # right
+                bul.rect_bullet.x = self.rect.x + 80
+                bul.rect_bullet.y = self.rect.y + 44
+            elif bul == self.bullets[0] and self.side == self.tank_sides[0]:  # up
+                bul.rect_bullet.x = self.rect.x + 44
+                bul.rect_bullet.y = self.rect.y
+            elif bul == self.bullets[0] and self.side == self.tank_sides[1]:  # down
+                bul.rect_bullet.x = self.rect.x + 44
+                bul.rect_bullet.y = self.rect.y + 80
 
     def shot(self, bullet_time_now, volume):
         self.bullet_next_time = bullet_time_now + 200
@@ -355,38 +394,55 @@ class TankRed(Tank):
             self.bullets.append(self.Bullet(bullet_dark_left, volume))
             self.bullet_start_position()
             self.second_shot(volume)
+            SCREEN.blit(flash_left, (self.rect.x - 50, self.rect.y + 40))
         elif self.side == tank_red_right and len(self.bullets) < 1:
             self.bullets.append(self.Bullet(bullet_dark_right, volume))
             self.bullet_start_position()
             self.second_shot(volume)
+            SCREEN.blit(flash_right, (self.rect.x + 100, self.rect.y + 40))
         elif self.side == tank_red_up and len(self.bullets) < 1:
             self.bullets.append(self.Bullet(bullet_dark_up, volume))
             self.bullet_start_position()
             self.second_shot(volume)
+            SCREEN.blit(flash_up, (self.rect.x + 40, self.rect.y - 50))
         elif self.side == tank_red_down and len(self.bullets) < 1:
             self.bullets.append(self.Bullet(bullet_dark_down, volume))
             self.bullet_start_position()
+            SCREEN.blit(flash_down, (self.rect.x + 40, self.rect.y + 100))
 
     def second_bullet_start_position(self):
         for bul in self.bullets:
-            if bul == self.bullets[-1]:
-                bul.rect_bullet.x = self.rect.x + 44
+            if bul == self.bullets[-1] and self.side == self.tank_sides[2]:  # left
+                bul.rect_bullet.x = self.rect.x
                 bul.rect_bullet.y = self.rect.y + 44
+            elif bul == self.bullets[-1] and self.side == self.tank_sides[3]:  # right
+                bul.rect_bullet.x = self.rect.x + 80
+                bul.rect_bullet.y = self.rect.y + 44
+            elif bul == self.bullets[-1] and self.side == self.tank_sides[0]:  # up
+                bul.rect_bullet.x = self.rect.x + 44
+                bul.rect_bullet.y = self.rect.y
+            elif bul == self.bullets[-1] and self.side == self.tank_sides[1]:  # down
+                bul.rect_bullet.x = self.rect.x + 44
+                bul.rect_bullet.y = self.rect.y + 80
 
     def second_shot(self, volume):
         if self.current_time > self.bullet_next_time and self.bullet_next_time != 0:
             if self.side == tank_red_left and len(self.bullets) < 2:
                 self.bullets.append(self.Bullet(bullet_dark_left, volume))
                 self.second_bullet_start_position()
+                SCREEN.blit(flash_left, (self.rect.x - 50, self.rect.y + 40))
             elif self.side == tank_red_right and len(self.bullets) < 2:
                 self.bullets.append(self.Bullet(bullet_dark_right, volume))
                 self.second_bullet_start_position()
+                SCREEN.blit(flash_right, (self.rect.x + 100, self.rect.y + 40))
             elif self.side == tank_red_up and len(self.bullets) < 2:
                 self.bullets.append(self.Bullet(bullet_dark_up, volume))
                 self.second_bullet_start_position()
+                SCREEN.blit(flash_up, (self.rect.x + 40, self.rect.y - 50))
             elif self.side == tank_red_down and len(self.bullets) < 2:
                 self.bullets.append(self.Bullet(bullet_dark_down, volume))
                 self.second_bullet_start_position()
+                SCREEN.blit(flash_down, (self.rect.x + 40, self.rect.y + 100))
             self.bullet_next_time = 0
 
     def draw(self):
@@ -428,41 +484,84 @@ class TankBigRed(Tank):
 
     def bullet_start_position(self):
         for bul in self.bullets:
-            if bul == self.bullets[0]:
-                bul.rect_bullet.x = self.rect.x + 20
-                bul.rect_bullet.y = self.rect.y + 20
-        # sound_tank_fire(all_volume)
+            if bul == self.bullets[0] and self.side == self.tank_sides[2]:  # left
+                bul.rect_bullet.x = self.rect.x + 70
+                bul.rect_bullet.y = self.rect.y + 25
+            elif bul == self.bullets[0] and self.side == self.tank_sides[3]:  # right
+                bul.rect_bullet.x = self.rect.x + 70
+                bul.rect_bullet.y = self.rect.y + 25
+            elif bul == self.bullets[0] and self.side == self.tank_sides[0]:  # up
+                bul.rect_bullet.x = self.rect.x + 25
+                bul.rect_bullet.y = self.rect.y + 70
+            elif bul == self.bullets[0] and self.side == self.tank_sides[1]:  # down
+                bul.rect_bullet.x = self.rect.x + 25
+                bul.rect_bullet.y = self.rect.y + 70
+
+    def second_bullet_start_position(self):
+        for bul in self.bullets:
+            if bul == self.bullets[-1] and bul.side_bullet == bullet_dark_up:
+                bul.rect_bullet.x = self.rect.x + 70
+                bul.rect_bullet.y = self.rect.y + 25
+            elif bul == self.bullets[-1] and bul.side_bullet == bullet_dark_down:
+                bul.rect_bullet.x = self.rect.x + 70
+                bul.rect_bullet.y = self.rect.y + 25
+            elif bul == self.bullets[-1] and bul.side_bullet == bullet_dark_left:
+                bul.rect_bullet.x = self.rect.x + 25
+                bul.rect_bullet.y = self.rect.y + 70
+            elif bul == self.bullets[-1] and bul.side_bullet == bullet_dark_right:
+                bul.rect_bullet.x = self.rect.x + 25
+                bul.rect_bullet.y = self.rect.y + 70
 
     def shot(self, bullet_time_now, volume):
         self.bullet_next_time = bullet_time_now + 10
         if self.side == tank_big_red_left and len(self.bullets) < 1:
             self.bullets.append(self.Bullet(bullet_dark_left, volume))
             self.bullet_start_position()
+            SCREEN.blit(flash_left, (self.rect.x - 30, self.rect.y + 20))
         elif self.side == tank_big_red_right and len(self.bullets) < 1:
             self.bullets.append(self.Bullet(bullet_dark_right, volume))
             self.bullet_start_position()
+            SCREEN.blit(flash_right, (self.rect.x + 80, self.rect.y + 20))
         elif self.side == tank_big_red_up and len(self.bullets) < 1:
             self.bullets.append(self.Bullet(bullet_dark_up, volume))
             self.bullet_start_position()
+            SCREEN.blit(flash_up, (self.rect.x + 20, self.rect.y - 30))
         elif self.side == tank_big_red_down and len(self.bullets) < 1:
             self.bullets.append(self.Bullet(bullet_dark_down, volume))
             self.bullet_start_position()
+            SCREEN.blit(flash_down, (self.rect.x + 20, self.rect.y + 80))
 
-    def second_bullet_start_position(self):
-        for bul in self.bullets:
-            if bul == self.bullets[-1] and bul.side_bullet == bullet_dark_up:
-                bul.rect_bullet.x = self.rect.x + 80
-                bul.rect_bullet.y = self.rect.y + 20
-            elif bul == self.bullets[-1] and bul.side_bullet == bullet_dark_down:
-                bul.rect_bullet.x = self.rect.x + 80
-                bul.rect_bullet.y = self.rect.y + 20
-            elif bul == self.bullets[-1] and bul.side_bullet == bullet_dark_left:
-                bul.rect_bullet.x = self.rect.x + 20
-                bul.rect_bullet.y = self.rect.y + 80
-            elif bul == self.bullets[-1] and bul.side_bullet == bullet_dark_right:
-                bul.rect_bullet.x = self.rect.x + 20
-                bul.rect_bullet.y = self.rect.y + 80
-            # sound_tank_fire(all_volume)
+    def second_shot(self, volume):
+        if self.current_time > self.bullet_next_time and self.bullet_next_time != 0:
+            if self.side == tank_big_red_left and len(self.bullets) < 2:
+                self.bullets.append(self.Bullet(bullet_dark_left, volume))
+                self.second_bullet_start_position()
+                SCREEN.blit(flash_left, (self.rect.x - 30, self.rect.y + 70))
+            elif self.side == tank_big_red_right and len(self.bullets) < 2:
+                self.bullets.append(self.Bullet(bullet_dark_right, volume))
+                self.second_bullet_start_position()
+                SCREEN.blit(flash_right, (self.rect.x + 80, self.rect.y + 70))
+            elif self.side == tank_big_red_up and len(self.bullets) < 2:
+                self.bullets.append(self.Bullet(bullet_dark_up, volume))
+                self.second_bullet_start_position()
+                SCREEN.blit(flash_up, (self.rect.x + 70, self.rect.y - 30))
+            elif self.side == tank_big_red_down and len(self.bullets) < 2:
+                self.bullets.append(self.Bullet(bullet_dark_down, volume))
+                self.second_bullet_start_position()
+                SCREEN.blit(flash_down, (self.rect.x + 70, self.rect.y + 80))
+            self.bullet_next_time = 0
+
+    def draw(self):
+        self.screen.blit(self.side, self.rect)  # Draw tank
+        person_font = font_tf.render(f'{self.name}:  ', True, self.p_color)
+        count_kill_font = font_kyiv.render(f': {self.count_kill}', True, azur)
+        self.screen.blit(person_font, (self.rect.x, self.rect.y + 38))  # Draw name
+        self.screen.blit(self.star, (self.rect.x + 40, self.rect.y + 20))  # Draw star
+        self.screen.blit(count_kill_font, (self.rect.x + 55, self.rect.y + 15))
+        time_msg = self._time_msg + self.cooldown_msg  # Show message by second
+        if self.current_time < time_msg:
+            msg_font = font_tf.render(f'{self.msg}', True, (255, 255, 255))
+            self.screen.blit(msg_font, (self.rect.x + 18, self.rect.y + 65))  # Draw msg
 
     def bullet_draw(self):
         for bul in self.bullets:
@@ -478,31 +577,3 @@ class TankBigRed(Tank):
             self.screen.blit(bul.side_bullet, bul.rect_bullet)
             if bul.rect_bullet.x < 0 or bul.rect_bullet.x > self.MAX_X + 90 or bul.rect_bullet.y < 0 or bul.rect_bullet.y > self.MAX_Y + 90:
                 self.bullets.pop(self.bullets.index(bul))
-
-    def second_shot(self, volume):
-        if self.current_time > self.bullet_next_time and self.bullet_next_time != 0:
-            if self.side == tank_big_red_left and len(self.bullets) < 2:
-                self.bullets.append(self.Bullet(bullet_dark_left, volume))
-                self.second_bullet_start_position()
-            elif self.side == tank_big_red_right and len(self.bullets) < 2:
-                self.bullets.append(self.Bullet(bullet_dark_right, volume))
-                self.second_bullet_start_position()
-            elif self.side == tank_big_red_up and len(self.bullets) < 2:
-                self.bullets.append(self.Bullet(bullet_dark_up, volume))
-                self.second_bullet_start_position()
-            elif self.side == tank_big_red_down and len(self.bullets) < 2:
-                self.bullets.append(self.Bullet(bullet_dark_down, volume))
-                self.second_bullet_start_position()
-            self.bullet_next_time = 0
-
-    def draw(self):
-        self.screen.blit(self.side, self.rect)  # Draw tank
-        person_font = font_tf.render(f'{self.name}:  ', True, self.p_color)
-        count_kill_font = font_kyiv.render(f': {self.count_kill}', True, azur)
-        self.screen.blit(person_font, (self.rect.x, self.rect.y + 38))  # Draw name
-        self.screen.blit(self.star, (self.rect.x + 40, self.rect.y + 20))  # Draw star
-        self.screen.blit(count_kill_font, (self.rect.x + 55, self.rect.y + 15))
-        time_msg = self._time_msg + self.cooldown_msg  # Show message by second
-        if self.current_time < time_msg:
-            msg_font = font_tf.render(f'{self.msg}', True, (255, 255, 255))
-            self.screen.blit(msg_font, (self.rect.x + 18, self.rect.y + 65))  # Draw msg

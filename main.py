@@ -68,7 +68,7 @@ def play(player_f, info_f, aim_f, moving_f):
     # ------- Parameters --------
     pygame.display.set_caption("Twitch tank 2022")
     time_bomb = time_bom_next = 12
-    time_red_star = time_red_star_next = 10
+    time_red_star = time_red_star_next = 2
     pygame.time.set_timer(pygame.USEREVENT, 1000)
     try:
         file_background = read_option_setting()["background"]
