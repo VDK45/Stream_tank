@@ -42,7 +42,7 @@ class Tank:
         self.count_kill = count_kill
         self._time_move = 0
         self._time_msg = 0
-        self.cooldown_msg = 30000
+        self.cooldown_msg = 30000  # time message
         self.level = level
         self.volume = volume
 

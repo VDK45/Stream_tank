@@ -172,12 +172,11 @@ def play(player_f, info_f, aim_f, moving_f):
 
         # ------ Tank message -------
         for tank in tanks:
+            tank.set_current_time(current_time)
             if tank.name == twitch_bot.lst_chat[0] and tank_message:
                 # tank.set_msg(twitch_bot.lst_chat[1])  # short message
                 tank.set_msg(twitch_bot.full_msg)
                 tank.set_time_msg(current_time)
-            else:
-                tank.set_msg('')
 
         # # -------- Check collision bullets, walls, tanks and destroy -------
         for tank in tanks:
@@ -493,7 +492,7 @@ def options():
                     save_option_setting(option_data, all_volume, walls_button, tank_msg)
                 # ------------- Video tips ------------------
                 if button_vieo_tips.checkForInput(OPTIONS_MOUSE_POS):
-                    video_tips_transparent.preview()
+                    video_tips_transparent.preview(fps=15, audio=False)
                 # ------ Clear high score -----
                 if button_clear_high_score.checkForInput(OPTIONS_MOUSE_POS):
                     high_score_data = {"player_name": "Player name", "high_score": 0}
@@ -715,7 +714,7 @@ def get_channel():
                 if get_key.checkForInput(OPTIONS_MOUSE_POS):
                     webbrowser.open('http://twitchapps.com/tmi/', new=2)
                 if play_video_button.checkForInput(OPTIONS_MOUSE_POS):
-                    video_tips.preview()
+                    video_tips.preview(fps=30, audio=False)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     run = False
