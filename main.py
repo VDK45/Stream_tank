@@ -492,7 +492,7 @@ def options():
                     save_option_setting(option_data, all_volume, walls_button, tank_msg)
                 # ------------- Video tips ------------------
                 if button_vieo_tips.checkForInput(OPTIONS_MOUSE_POS):
-                    video_tips_transparent.preview(fps=15, audio=False)
+                    video_tips_transparent.preview(fps=FPS, audio=False)
                 # ------ Clear high score -----
                 if button_clear_high_score.checkForInput(OPTIONS_MOUSE_POS):
                     high_score_data = {"player_name": "Player name", "high_score": 0}
@@ -714,7 +714,7 @@ def get_channel():
                 if get_key.checkForInput(OPTIONS_MOUSE_POS):
                     webbrowser.open('http://twitchapps.com/tmi/', new=2)
                 if play_video_button.checkForInput(OPTIONS_MOUSE_POS):
-                    video_tips.preview(fps=30, audio=False)
+                    video_tips.preview(fps=FPS, audio=False)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     run = False
