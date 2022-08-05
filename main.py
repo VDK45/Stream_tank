@@ -9,7 +9,7 @@ import server
 import random
 from button import *
 from objects import *
-from keys_control import *
+# from keys_control import *
 from twitch_control import *
 from effects import *
 from sounds import *
@@ -67,8 +67,8 @@ def play(player_f, info_f, aim_f, moving_f):
 
     # ------- Parameters --------
     pygame.display.set_caption("Twitch tank 2022")
-    time_bomb = time_bom_next = 12
-    time_red_star = time_red_star_next = 2
+    time_bomb = time_bom_next = 150
+    time_red_star = time_red_star_next = 60
     pygame.time.set_timer(pygame.USEREVENT, 1000)
     try:
         file_background = read_option_setting()["background"]
@@ -119,15 +119,12 @@ def play(player_f, info_f, aim_f, moving_f):
                 pass
         else:
             pass
-
-        # --------- TEST AFTER DELETE ------
-
-        if user_input[pygame.K_g] and len(tanks) > 0:
-            tanks.pop()
-
         # -------- Draw walls brick ----------
-        for obj in objects:
-            obj.draw()
+        if walls_button:
+            for obj in objects:
+                obj.draw()
+        else:
+            objects.clear()
 
         # ---- Sound idle ----
         sound_idle(all_volume / 2)
@@ -140,16 +137,6 @@ def play(player_f, info_f, aim_f, moving_f):
         moving_f = check_difference(all_t_moving)
         all_t_moving.clear()
 
-        # ---- Sound moving by keys ----
-        if user_input[pygame.K_a]:
-            moving_f = True
-        elif user_input[pygame.K_s]:
-            moving_f = True
-        elif user_input[pygame.K_w]:
-            moving_f = True
-        elif user_input[pygame.K_d]:
-            moving_f = True
-
         # -------- Draw explosion / oils -------
         for o in oils:
             o.oil_anim(oil)
@@ -160,6 +147,13 @@ def play(player_f, info_f, aim_f, moving_f):
         twitch_command = twitch_bot.command
         twitch_name = twitch_bot.chater
         time_move = twitch_bot.time_move
+        # -------- viewers ------
+        viewer_list = {'viewer_list': viewers}
+        if twitch_name not in viewers:
+            viewers.append(twitch_name)
+            print(len(viewers))
+            print(viewers)
+            save_viewers_name(viewer_list)
 
         # --------- Twitch control all tanks -----------
         twitch_command_movie(twitch_command, twitch_name, time_move, current_time, all_volume)
@@ -217,14 +211,28 @@ def play(player_f, info_f, aim_f, moving_f):
                         info_f = "DESTROID"
                         tank.count_kill += 1
 
+        # --------- TEST AFTER DELETE ------
+        # if user_input[pygame.K_g] and len(tanks) > 0:
+        #     tanks.pop()
+
         # --- Add new tank by Q key ---
-        add_tank_by_key(user_input, random_x, random_y, twitch_name, random_color, all_volume)
+        # add_tank_by_key(user_input, random_x, random_y, twitch_name, random_color, all_volume)
 
         # --------- Keys control for tank index 0 ----------
-        keys_movie(user_input, current_time, all_volume)
+        # keys_movie(user_input, current_time, all_volume)
 
         # --------- Build by r key ----------
-        key_build_wall(user_input, walls_max, WIDTH, HEIGHT)
+        # key_build_wall(user_input, walls_max, WIDTH, HEIGHT)
+
+        # # ---- Sound moving by keys ----
+        # if user_input[pygame.K_a]:
+        #     moving_f = True
+        # elif user_input[pygame.K_s]:
+        #     moving_f = True
+        # elif user_input[pygame.K_w]:
+        #     moving_f = True
+        # elif user_input[pygame.K_d]:
+        #             moving_f = True
 
         # --------- TWITCH COMMANDS add tank -----------
         add_tank_by_twitch_command(random_x, random_y, twitch_name, twitch_command, random_color, all_volume)

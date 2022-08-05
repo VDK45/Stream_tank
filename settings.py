@@ -200,6 +200,13 @@ moving = False
 all_t_moving = []
 objects = []
 title_size = 100
+viewers = []
+
+
+# -------- save viewers -------
+def save_viewers_name(viewers_f):
+    with open("assets/cfg/viewers.cfg", 'w') as game_file:
+        json.dump(viewers_f, game_file)
 
 
 # ------- Game parameters save -------
