@@ -16,7 +16,7 @@ time_move = 2  # action time
 TWITCH_RUN = True
 
 lst_chat = ['BOT', 'Write in the chat to play!', 'BOT', 'Welcome to Tank game!',
-            'BOT', 'Enter commands for the game in the chat!', 'BOT', 'RESET THE GAME FOR CONNECT TO TWITCH!']
+            'BOT', 'Enter commands for the game in the chat!', 'BOT', 'TWITCH NOT CONNECTED!']
 sound = False
 
 
