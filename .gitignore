@@ -1,6 +1,15 @@
+.idea/
 output/
 *.pyc
 __pycache__/
 venv/
-__pycache__/settings.cpython-310.pyc
 TEST.py
+assets/cfg
+
+__pycache__/settings.cpython-310.pyc
+*.cfg
+__pycache__/keys_control.cpython-310.pyc
+__pycache__/settings.cpython-310.pyc
+__pycache__/tank.cpython-310.pyc
+assets/cfg/game_setting.cfg
+assets/cfg/option_setting.cfg

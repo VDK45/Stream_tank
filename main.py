@@ -9,7 +9,7 @@ import server
 import random
 from button import *
 from objects import *
-from keys_control import *
+# from keys_control import *
 from twitch_control import *
 from effects import *
 from sounds import *
@@ -67,8 +67,8 @@ def play(player_f, info_f, aim_f, moving_f):
 
     # ------- Parameters --------
     pygame.display.set_caption("Twitch tank 2022")
-    time_bomb = time_bom_next = 12
-    time_red_star = time_red_star_next = 10
+    time_bomb = time_bom_next = 150
+    time_red_star = time_red_star_next = 60
     pygame.time.set_timer(pygame.USEREVENT, 1000)
     try:
         file_background = read_option_setting()["background"]
@@ -119,15 +119,12 @@ def play(player_f, info_f, aim_f, moving_f):
                 pass
         else:
             pass
-
-        # --------- TEST AFTER DELETE ------
-
-        if user_input[pygame.K_g] and len(tanks) > 0:
-            tanks.pop()
-
         # -------- Draw walls brick ----------
-        for obj in objects:
-            obj.draw()
+        if walls_button:
+            for obj in objects:
+                obj.draw()
+        else:
+            objects.clear()
 
         # ---- Sound idle ----
         sound_idle(all_volume / 2)
@@ -140,16 +137,6 @@ def play(player_f, info_f, aim_f, moving_f):
         moving_f = check_difference(all_t_moving)
         all_t_moving.clear()
 
-        # ---- Sound moving by keys ----
-        if user_input[pygame.K_a]:
-            moving_f = True
-        elif user_input[pygame.K_s]:
-            moving_f = True
-        elif user_input[pygame.K_w]:
-            moving_f = True
-        elif user_input[pygame.K_d]:
-            moving_f = True
-
         # -------- Draw explosion / oils -------
         for o in oils:
             o.oil_anim(oil)
@@ -160,6 +147,13 @@ def play(player_f, info_f, aim_f, moving_f):
         twitch_command = twitch_bot.command
         twitch_name = twitch_bot.chater
         time_move = twitch_bot.time_move
+        # -------- viewers ------
+        viewer_list = {'viewer_list': viewers}
+        if twitch_name not in viewers:
+            viewers.append(twitch_name)
+            print(len(viewers))
+            print(viewers)
+            save_viewers_name(viewer_list)
 
         # --------- Twitch control all tanks -----------
         twitch_command_movie(twitch_command, twitch_name, time_move, current_time, all_volume)
@@ -172,12 +166,11 @@ def play(player_f, info_f, aim_f, moving_f):
 
         # ------ Tank message -------
         for tank in tanks:
+            tank.set_current_time(current_time)
             if tank.name == twitch_bot.lst_chat[0] and tank_message:
                 # tank.set_msg(twitch_bot.lst_chat[1])  # short message
                 tank.set_msg(twitch_bot.full_msg)
                 tank.set_time_msg(current_time)
-            else:
-                tank.set_msg('')
 
         # # -------- Check collision bullets, walls, tanks and destroy -------
         for tank in tanks:
@@ -218,14 +211,28 @@ def play(player_f, info_f, aim_f, moving_f):
                         info_f = "DESTROID"
                         tank.count_kill += 1
 
+        # --------- TEST AFTER DELETE ------
+        # if user_input[pygame.K_g] and len(tanks) > 0:
+        #     tanks.pop()
+
         # --- Add new tank by Q key ---
-        add_tank_by_key(user_input, random_x, random_y, twitch_name, random_color, all_volume)
+        # add_tank_by_key(user_input, random_x, random_y, twitch_name, random_color, all_volume)
 
         # --------- Keys control for tank index 0 ----------
-        keys_movie(user_input, current_time, all_volume)
+        # keys_movie(user_input, current_time, all_volume)
 
         # --------- Build by r key ----------
-        key_build_wall(user_input, walls_max, WIDTH, HEIGHT)
+        # key_build_wall(user_input, walls_max, WIDTH, HEIGHT)
+
+        # # ---- Sound moving by keys ----
+        # if user_input[pygame.K_a]:
+        #     moving_f = True
+        # elif user_input[pygame.K_s]:
+        #     moving_f = True
+        # elif user_input[pygame.K_w]:
+        #     moving_f = True
+        # elif user_input[pygame.K_d]:
+        #             moving_f = True
 
         # --------- TWITCH COMMANDS add tank -----------
         add_tank_by_twitch_command(random_x, random_y, twitch_name, twitch_command, random_color, all_volume)
@@ -382,44 +389,44 @@ def options():
 
         # ------------- Green background -----------
         button_green_bg = Button(image=green_button_rect, pos=(500, 220),
-                                 text_input="BACKGROUND", font=get_font(25), base_color="Blue",
+                                 text_input="Background ON", font=get_font(17), base_color="Blue",
                                  hovering_color="Yellow")
         button_green_bg_off = Button(image=green_button_rect, pos=(200, 220),
-                                     text_input="BACKGROUND", font=get_font(25), base_color="Black",
+                                     text_input="Background OFF", font=get_font(17), base_color="Black",
                                      hovering_color="Yellow")
 
         # ---------- Change back ground -------------
         button_change_bg = Button(image=option_button_rect, pos=(900, 220),
-                                  text_input="Chose back ground", font=get_font(25), base_color="Blue",
+                                  text_input="Chose back ground", font=get_font(20), base_color="Blue",
                                   hovering_color="Yellow")
 
         # --------- Clear high score ----------
         button_clear_high_score = Button(image=option_button_rect, pos=(900, 520),
-                                         text_input="Clear high score", font=get_font(25), base_color="Blue",
+                                         text_input="Clear high score", font=get_font(20), base_color="Blue",
                                          hovering_color="Yellow")
 
         # ------- Show / hide chat -------
         button_show_chat = Button(image=green_button_rect, pos=(200, 320),
-                                  text_input="CHAT ON", font=get_font(25), base_color="Blue",
+                                  text_input="CHAT ON", font=get_font(20), base_color="Blue",
                                   hovering_color="Yellow")
         button_hide_chat = Button(image=green_button_rect, pos=(500, 320),
-                                  text_input="CHAT OFF", font=get_font(25), base_color="Blue",
+                                  text_input="CHAT OFF", font=get_font(20), base_color="Blue",
                                   hovering_color="Yellow")
 
         # ------- ON / OFF walls -------
         button_walls_on = Button(image=green_button_rect, pos=(200, 420),
-                                 text_input="WALLS ON", font=get_font(25), base_color="Blue",
+                                 text_input="WALLS ON", font=get_font(20), base_color="Blue",
                                  hovering_color="Yellow")
         button_walls_off = Button(image=green_button_rect, pos=(500, 420),
-                                  text_input="WALLS OFF", font=get_font(25), base_color="Blue",
+                                  text_input="WALLS OFF", font=get_font(20), base_color="Blue",
                                   hovering_color="Yellow")
 
         # ------- ON / OFF tank message -------
         button_t_chat_on = Button(image=green_button_rect, pos=(200, 520),
-                                  text_input="TANK CHAT", font=get_font(25), base_color="Blue",
+                                  text_input="TANK CHAT ON", font=get_font(18), base_color="Blue",
                                   hovering_color="Yellow")
         button_t_chat_off = Button(image=green_button_rect, pos=(500, 520),
-                                   text_input="TANK CHAT", font=get_font(25), base_color="Blue",
+                                   text_input="TANK CHAT OFF", font=get_font(18), base_color="Blue",
                                    hovering_color="Yellow")
 
         # ------ Back button ------
@@ -493,7 +500,7 @@ def options():
                     save_option_setting(option_data, all_volume, walls_button, tank_msg)
                 # ------------- Video tips ------------------
                 if button_vieo_tips.checkForInput(OPTIONS_MOUSE_POS):
-                    video_tips_transparent.preview()
+                    video_tips_transparent.preview(fps=FPS, audio=False)
                 # ------ Clear high score -----
                 if button_clear_high_score.checkForInput(OPTIONS_MOUSE_POS):
                     high_score_data = {"player_name": "Player name", "high_score": 0}
@@ -715,7 +722,7 @@ def get_channel():
                 if get_key.checkForInput(OPTIONS_MOUSE_POS):
                     webbrowser.open('http://twitchapps.com/tmi/', new=2)
                 if play_video_button.checkForInput(OPTIONS_MOUSE_POS):
-                    video_tips.preview()
+                    video_tips.preview(fps=FPS, audio=False)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     run = False

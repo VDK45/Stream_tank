@@ -28,7 +28,7 @@ pygame.init()
 pygame.mixer.pre_init(frequency=44100, size=-16, channels=8, buffer=1024, devicename=None)
 intro = resource_path("assets/video_intro.mp4")
 intro = VideoFileClip(intro)
-intro.preview()
+# intro.preview(fps=FPS, audio=False)
 video_tips = resource_path("assets/tips.mp4")
 video_tips = VideoFileClip(video_tips)
 video_tips_tr  = resource_path("assets/tips_transparent .mp4")
@@ -94,11 +94,19 @@ tank_big_red_down = pygame.transform.flip(tank_big_red_up, False, True)
 tank_big_red_left = pygame.transform.rotate(tank_big_red_up, 90)
 tank_big_red_right = pygame.transform.rotate(tank_big_red_up, -90)
 
+# ------------ bullet ----------
 bullet_dark_up_res = resource_path('images/tanks/bulletDarkUp.png')
 bullet_dark_up = pygame.image.load(bullet_dark_up_res)
 bullet_dark_down = pygame.transform.flip(bullet_dark_up, False, True)
 bullet_dark_left = pygame.transform.rotate(bullet_dark_up, 90)
 bullet_dark_right = pygame.transform.rotate(bullet_dark_up, -90)
+
+# ------------ Shot flash ----------
+flash_res = resource_path('images/flash/shotThin.png')
+flash_up = pygame.image.load(flash_res)
+flash_down = pygame.transform.flip(flash_up, False, True)
+flash_left = pygame.transform.rotate(flash_up, 90)
+flash_right = pygame.transform.rotate(flash_up, -90)
 
 star_res = resource_path('images/icons/star.png')
 star = pygame.image.load(star_res)
@@ -192,6 +200,13 @@ moving = False
 all_t_moving = []
 objects = []
 title_size = 100
+viewers = []
+
+
+# -------- save viewers -------
+def save_viewers_name(viewers_f):
+    with open("assets/cfg/viewers.cfg", 'w') as game_file:
+        json.dump(viewers_f, game_file)
 
 
 # ------- Game parameters save -------
